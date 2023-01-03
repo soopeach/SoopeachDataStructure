@@ -8,8 +8,6 @@ typedef struct SimpleLinkedListNode {
     char *data;
 } LinkedList;
 
-void testLinkedList();
-
 bool isEmpty(LinkedList *list) {
     if (list->next == NULL) {
         return true;
