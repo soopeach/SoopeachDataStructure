@@ -48,6 +48,32 @@ void append(LinkedList *list, char *data) {
     last_node->next = new_node;
 }
 
+void appendByIndex(LinkedList *list, char *data, int target_index) {
+    if (isEmpty(list)) {
+        printf("is empty\n");
+        return;
+    }
+
+    LinkedList *pre = list;
+    LinkedList *cur = list->next;
+    int index = 0;
+
+    while (index < target_index) {
+        pre = cur;
+        cur = cur->next;
+        index++;
+        if (cur == NULL) {
+            printf("out of index\n");
+            return;
+        }
+    }
+
+    LinkedList *newNode = getNewLinkedListNode(data);
+    newNode->next = cur;
+    pre->next = newNode;
+
+}
+
 void removeByIndex(LinkedList *list, int target_index) {
 
     if (isEmpty(list)) {
@@ -170,7 +196,7 @@ void testLinkedList() {
     // expect: no such element
 
     removeByIndex(my_linked_list, 9999);
-    // expect: out of bound
+    // expect: out of index
 
     appendFirst(my_linked_list, g);
     showLinkedList(my_linked_list);
@@ -185,10 +211,17 @@ void testLinkedList() {
     showLinkedList(my_linked_list);
     // expect: [ 111 , 222 , 333 , 555 ]
 
+    appendByIndex(my_linked_list, g, 999);
+    // expect: out of index
+
+    appendByIndex(my_linked_list, g, 3);
+    showLinkedList(my_linked_list);
+    // expect: [ 111 , 222 , ,333 , 777 ,555 ]
+
     removeByIndex(my_linked_list, 1);
     removeByIndex(my_linked_list, 0);
     showLinkedList(my_linked_list);
-    // expect: [ 333 , 555 ]
+    // expect: [ 333, 777 , 555 ]
 
     freeLinkedList(my_linked_list);
 
