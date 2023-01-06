@@ -216,7 +216,7 @@ void testLinkedList() {
 
     appendByIndex(my_linked_list, g, 3);
     showLinkedList(my_linked_list);
-    // expect: [ 111 , 222 , ,333 , 777 ,555 ]
+    // expect: [ 111 , 222 , 333 , 777 ,555 ]
 
     removeByIndex(my_linked_list, 1);
     removeByIndex(my_linked_list, 0);
