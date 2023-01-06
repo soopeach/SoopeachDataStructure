@@ -3,8 +3,8 @@
 #include <string.h>
 #include <stdbool.h>
 
-typedef struct SimpleLinkedListNode {
-    struct SimpleLinkedListNode *next;
+typedef struct SinglyLinkedListNode {
+    struct SinglyLinkedListNode *next;
     char *data;
 } LinkedList;
 
