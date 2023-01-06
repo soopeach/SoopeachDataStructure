@@ -24,9 +24,8 @@ LinkedList *getEmptyLinkedList() {
 }
 
 LinkedList *getNewLinkedListNode(char *data) {
-    LinkedList *linked_list = (LinkedList *) malloc(sizeof(LinkedList));
+    LinkedList *linked_list = getEmptyLinkedList();
     linked_list->data = data;
-    linked_list->next = NULL;
     return linked_list;
 }
 
