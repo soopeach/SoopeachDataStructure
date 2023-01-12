@@ -152,7 +152,6 @@ void deleteSingleChildNode(BinarySearchTreeNode *parentNode, BinarySearchTreeNod
             parentNode->right = targetNode->right;
         }
     }
-    free(targetNode);
 }
 
 bool isLeafNode(BinarySearchTreeNode *node) {
@@ -181,6 +180,12 @@ void delete(BinarySearchTreeNode *node, int targetData) {
 
         BinarySearchTreeNode *parentOfTargetNode = searchParentNode(node, targetData);
 
+        // 삭제할 노드가 루트 노드일 경우
+        if (parentOfTargetNode == NULL) {
+            printf("is root \n");
+            return;
+        }
+
         // 삭제할 노드가 리프 노드일 경우
         if (isLeafNode(targetNode)) {
 
@@ -189,7 +194,6 @@ void delete(BinarySearchTreeNode *node, int targetData) {
             } else {
                 parentOfTargetNode->right = NULL;
             }
-            free(targetNode);
 
             // 삭제할 노드가 자식이 두 개인 노드일 경우
             // 삭제할 노드의 오른쪽 트리에서 최솟값을 찾아서 대체하기
@@ -197,12 +201,6 @@ void delete(BinarySearchTreeNode *node, int targetData) {
 
             BinarySearchTreeNode *leastNode = getLeastNodeFromRight(targetNode);
             BinarySearchTreeNode *parentOfLeastNode = searchParentNode(node, leastNode->data);
-
-            // 삭제할 노드가 루트 노드일 경우
-            if (parentOfTargetNode == NULL) {
-                printf("is root \n");
-                return;
-            }
 
             // 최솟값 노드가 리프 노드일 경우
             if (isLeafNode(leastNode)) {
@@ -215,8 +213,6 @@ void delete(BinarySearchTreeNode *node, int targetData) {
                 }
                 parentOfLeastNode->left = NULL;
 
-                free(targetNode);
-
                 // 최솟값 노드가 하나의 자식을 가질 경우
             } else {
                 leastNode->left = targetNode->left;
@@ -228,13 +224,14 @@ void delete(BinarySearchTreeNode *node, int targetData) {
                 parentOfLeastNode->left = leastNode->right;
                 leastNode->right = targetNode->right;
 
-                free(targetNode);
             }
 
             // 삭제할 노드가 자식이 하나인 노드일 경우
         } else {
             deleteSingleChildNode(parentOfTargetNode, targetNode);
         }
+
+        free(targetNode);
     }
 
 }
