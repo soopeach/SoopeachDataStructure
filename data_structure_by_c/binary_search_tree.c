@@ -322,7 +322,7 @@ void testBinarySearchTree() {
     order(root, PRE_ORDER);
     // expect : 100 70 40 1 45 41 43 120 9999 170
 
-    // delete binary node that leafNode has single child (target from parent's left)
+    // delete binary node that leafNode has single child (targetNode from parent's left)
     delete(root, 40);
     order(root, PRE_ORDER);
     // expect: 100 70 41 1 45 43 120 9999 170
@@ -333,6 +333,7 @@ void testBinarySearchTree() {
     order(root, PRE_ORDER);
     // expect: 100 70 41 1 45 43 120 9999 170 100000 10000 20000
 
+    // delete binary node that leafNode has single child (targetNode from parent's right)
     delete(root, 9999);
     order(root, PRE_ORDER);
     // expect : 100 70 41 1 45 43 120 10000 170 100000 20000
