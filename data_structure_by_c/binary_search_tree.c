@@ -21,20 +21,20 @@ BinarySearchTreeNode *noSuchElementException() {
 
 BinarySearchTreeNode *getBinaryTree(int data) {
 
-    BinarySearchTreeNode *newNode = (BinarySearchTreeNode *) malloc(sizeof(BinarySearchTreeNode));
+    BinarySearchTreeNode *new_node = (BinarySearchTreeNode *) malloc(sizeof(BinarySearchTreeNode));
 
-    newNode->data = data;
-    newNode->left = NULL;
-    newNode->right = NULL;
+    new_node->data = data;
+    new_node->left = NULL;
+    new_node->right = NULL;
 
-    return newNode;
+    return new_node;
 }
 
 BinarySearchTreeNode *insert(BinarySearchTreeNode *node, int data) {
 
     if (node == NULL) {
-        BinarySearchTreeNode *newNode = getBinaryTree(data);
-        return newNode;
+        BinarySearchTreeNode *new_node = getBinaryTree(data);
+        return new_node;
     } else if (data < node->data) {
         node->left = insert(node->left, data);
     } else if (node->data < data) {
@@ -46,19 +46,19 @@ BinarySearchTreeNode *insert(BinarySearchTreeNode *node, int data) {
     return node;
 }
 
-BinarySearchTreeNode *search(BinarySearchTreeNode *node, int targetData) {
+BinarySearchTreeNode *search(BinarySearchTreeNode *node, int target_data) {
 
-    if (node->data == targetData) {
+    if (node->data == target_data) {
         return node;
-    } else if (targetData < node->data) {
+    } else if (target_data < node->data) {
         if (node->left != NULL) {
-            BinarySearchTreeNode *foundLeftNode = search(node->left, targetData);
-            return foundLeftNode;
+            BinarySearchTreeNode *found_left_node = search(node->left, target_data);
+            return found_left_node;
         }
-    } else if (node->data < targetData) {
+    } else if (node->data < target_data) {
         if (node->right != NULL) {
-            BinarySearchTreeNode *foundRightNode = search(node->right, targetData);
-            return foundRightNode;
+            BinarySearchTreeNode *found_right_node = search(node->right, target_data);
+            return found_right_node;
         }
     }
 
@@ -66,25 +66,25 @@ BinarySearchTreeNode *search(BinarySearchTreeNode *node, int targetData) {
 
 }
 
-BinarySearchTreeNode *searchParent(BinarySearchTreeNode *node, int targetData) {
+BinarySearchTreeNode *searchParent(BinarySearchTreeNode *node, int target_data) {
 
-    BinarySearchTreeNode *parentNode = NULL;
-    BinarySearchTreeNode *targetNode = node;
+    BinarySearchTreeNode *parent_node = NULL;
+    BinarySearchTreeNode *target_node = node;
 
-    while ((targetNode != NULL) && (targetNode->data != targetData)) {
-        parentNode = targetNode;
-        if (targetData < targetNode->data) {
-            targetNode = targetNode->left;
+    while ((target_node != NULL) && (target_node->data != target_data)) {
+        parent_node = target_node;
+        if (target_data < target_node->data) {
+            target_node = target_node->left;
         } else {
-            targetNode = targetNode->right;
+            target_node = target_node->right;
         }
     }
 
-    if (targetNode == NULL) {
+    if (target_node == NULL) {
         printf("no such element\n");
     }
 
-    return parentNode;
+    return parent_node;
 }
 
 void preOrder(BinarySearchTreeNode *node) {
@@ -120,9 +120,9 @@ void postOrder(BinarySearchTreeNode *node) {
 
 }
 
-void order(BinarySearchTreeNode *node, enum OrderType orderType) {
+void order(BinarySearchTreeNode *node, enum OrderType order_type) {
 
-    switch (orderType) {
+    switch (order_type) {
         case PRE_ORDER:
             preOrder(node);
             printf("\n");
@@ -138,18 +138,18 @@ void order(BinarySearchTreeNode *node, enum OrderType orderType) {
     }
 }
 
-void deleteSingleChildNode(BinarySearchTreeNode *parentNode, BinarySearchTreeNode *targetNode) {
-    if (parentNode->left == targetNode) {
-        if (targetNode->left != NULL) {
-            parentNode->left = targetNode->left;
+void deleteSingleChildNode(BinarySearchTreeNode *parent_node, BinarySearchTreeNode *target_node) {
+    if (parent_node->left == target_node) {
+        if (target_node->left != NULL) {
+            parent_node->left = target_node->left;
         } else {
-            parentNode->left = targetNode->right;
+            parent_node->left = target_node->right;
         }
     } else {
-        if (targetNode->left != NULL) {
-            parentNode->right = targetNode->left;
+        if (target_node->left != NULL) {
+            parent_node->right = target_node->left;
         } else {
-            parentNode->right = targetNode->right;
+            parent_node->right = target_node->right;
         }
     }
 }
@@ -163,24 +163,24 @@ bool isBinaryNode(BinarySearchTreeNode *node) {
 }
 
 BinarySearchTreeNode *getLeastFromRight(BinarySearchTreeNode *node) {
-    BinarySearchTreeNode *leastNode = node->right;
+    BinarySearchTreeNode *least_node = node->right;
 
-    while (leastNode->left != NULL) {
-        leastNode = leastNode->left;
+    while (least_node->left != NULL) {
+        least_node = least_node->left;
     }
-    return leastNode;
+    return least_node;
 }
 
-void delete(BinarySearchTreeNode *node, int targetData) {
+void delete(BinarySearchTreeNode *node, int target_data) {
 
-    BinarySearchTreeNode *target = search(node, targetData);
+    BinarySearchTreeNode *target = search(node, target_data);
 
     if (target != NULL) {
 
-        BinarySearchTreeNode *parentOfTarget = searchParent(node, targetData);
+        BinarySearchTreeNode *parent_of_target = searchParent(node, target_data);
 
         // 삭제할 노드가 루트 노드일 경우
-        if (parentOfTarget == NULL) {
+        if (parent_of_target == NULL) {
             printf("is root \n");
             return;
         }
@@ -188,10 +188,10 @@ void delete(BinarySearchTreeNode *node, int targetData) {
         // 삭제할 노드가 리프 노드일 경우
         if (isLeafNode(target)) {
 
-            if (parentOfTarget->left == target) {
-                parentOfTarget->left = NULL;
+            if (parent_of_target->left == target) {
+                parent_of_target->left = NULL;
             } else {
-                parentOfTarget->right = NULL;
+                parent_of_target->right = NULL;
             }
 
             // 삭제할 노드가 자식이 두 개인 노드일 경우
@@ -199,36 +199,36 @@ void delete(BinarySearchTreeNode *node, int targetData) {
         } else if (isBinaryNode(target)) {
 
             BinarySearchTreeNode *least = getLeastFromRight(target);
-            BinarySearchTreeNode *parentOfLeast = searchParent(node, least->data);
+            BinarySearchTreeNode *parent_of_least = searchParent(node, least->data);
 
             // 최솟값 노드가 리프 노드일 경우
             if (isLeafNode(least)) {
 
                 least->left = target->left;
 
-                if (parentOfTarget->left == target) {
-                    parentOfTarget->left = least;
+                if (parent_of_target->left == target) {
+                    parent_of_target->left = least;
                 } else {
-                    parentOfTarget->right = least;
+                    parent_of_target->right = least;
                 }
-                parentOfLeast->left = NULL;
+                parent_of_least->left = NULL;
 
                 // 최솟값 노드가 하나의 자식을 가질 경우
             } else {
                 least->left = target->left;
-                if (parentOfTarget->left == target) {
-                    parentOfTarget->left = least;
+                if (parent_of_target->left == target) {
+                    parent_of_target->left = least;
                 } else {
-                    parentOfTarget->right = least;
+                    parent_of_target->right = least;
                 }
-                parentOfLeast->left = least->right;
+                parent_of_least->left = least->right;
                 least->right = target->right;
 
             }
 
             // 삭제할 노드가 자식이 하나인 노드일 경우
         } else {
-            deleteSingleChildNode(parentOfTarget, target);
+            deleteSingleChildNode(parent_of_target, target);
         }
 
         free(target);
@@ -291,8 +291,8 @@ void testBinarySearchTree() {
     searchParent(root, 654165);
     // expect: no such element
 
-    int targetNodeData = 170;
-    printf("%d parent is %d\n", targetNodeData, searchParent(root, targetNodeData)->data);
+    int target_node_data = 170;
+    printf("%d parent is %d\n", target_node_data, searchParent(root, target_node_data)->data);
     // expect: 170 parent is 1000
 
     // delete single child node
