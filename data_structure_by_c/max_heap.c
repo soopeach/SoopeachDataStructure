@@ -169,8 +169,3 @@ void testMaxHeap() {
     delete(heap);
     // expect: heap is empty!
 }
-
-int main() {
-    testMaxHeap();
-    return 0;
-}
